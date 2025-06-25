@@ -1,0 +1,10 @@
+@import "tailwindcss";
+
+
+html {
+  @apply bg-white text-gray-900;
+}
+
+html.dark {
+  @apply bg-gray-900 text-white;
+}

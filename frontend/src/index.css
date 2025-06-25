@@ -1,0 +1,19 @@
+@import "tailwindcss";
+
+
+/* Default Light Mode */
+
+
+/* Dark Mode */
+html {
+  @apply bg-gray-900 text-white;
+}
+
+/* Additional Styling */
+body {
+  @apply min-h-screen font-sans;
+}
+
+.login{
+  overflow: hidden;
+}
