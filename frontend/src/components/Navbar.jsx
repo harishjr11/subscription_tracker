@@ -24,7 +24,7 @@ function Navbar() {
   };
 
   return (
-    <nav className="bg-gray-900 text-white p-4 w-full flex justify-between items-center fixed shadow-lg">
+    <nav className="bg-gray-900 text-white p-4 w-full flex justify-between items-center shadow-lg">
       {/* Left - Logo */}
       <h1 className="text-xl font-bold text-blue-400">SubManager</h1>
 
@@ -48,6 +48,16 @@ function Navbar() {
             } hover:text-blue-400`}
           >
             Subscriptions
+          </Link>
+        </li>
+                <li>
+          <Link
+            to="/chat"
+            className={`${
+              location.pathname === "/chat" ? "text-blue-400" : "text-gray-300"
+            } hover:text-blue-400`}
+          >
+            Chat
           </Link>
         </li>
       </ul>

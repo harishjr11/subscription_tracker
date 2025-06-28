@@ -1,0 +1,194 @@
+.chat-box {
+  height: 400px;
+  width: 100%;
+  overflow-y: scroll;
+  padding: 1rem;
+  border: 1px solid #090909;
+  background-color: #cc3b3b;
+  margin-bottom: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.my-msg {
+  align-self: flex-end;
+  background-color: #4caf50;
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 12px;
+  max-width: 70%;
+}
+
+.their-msg {
+  align-self: flex-start;
+  background-color: #e0e0e0;
+  color: black;
+  padding: 0.5rem 1rem;
+  border-radius: 12px;
+  max-width: 70%;
+}
+
+.typing-indicator::after {
+  content: '⠋⠙⠹⠸⠼⠴⠦⠧⠇⠏';
+  animation: blink 1s steps(10, start) infinite;
+  margin-left: 8px;
+  font-size: 1rem;
+}
+
+@keyframes blink {
+  0% { content: '⠋'; }
+  10% { content: '⠙'; }
+  20% { content: '⠹'; }
+  30% { content: '⠸'; }
+  40% { content: '⠼'; }
+  50% { content: '⠴'; }
+  60% { content: '⠦'; }
+  70% { content: '⠧'; }
+  80% { content: '⠇'; }
+  90% { content: '⠏'; }
+  100% { content: '⠋'; }
+}
+
+
+.seen-indicator {
+  font-size: 0.8rem;
+  color: green;
+  margin-left: 8px;
+}
+
+.subscription-card {
+  border: 2px solid #10b981;
+  border-radius: 12px;
+  padding: 16px;
+  margin: 8px 0;
+  background: #1f2937;
+  max-width: 300px;
+}
+
+.subscription-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.service-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #dc2626;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  margin-right: 12px;
+}
+
+.subscription-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.price {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.status.active {
+  background: #10b981;
+  color: white;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+}
+
+
+/* Add this to your Chat.css file temporarily for debugging */
+
+.debug-chat-container {
+  border: 3px solid red !important;
+  height: 100vh !important;
+  max-height: 100vh !important;
+  overflow: hidden !important;
+}
+
+.debug-input-area {
+  border: 3px solid blue !important;
+  background-color: yellow !important;
+  position: fixed !important;
+  bottom: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  z-index: 9999 !important;
+}
+
+
+.chat-box::-webkit-scrollbar {
+  width: 6px;
+}
+
+.chat-box::-webkit-scrollbar-track {
+  background: #161b22;
+}
+
+.chat-box::-webkit-scrollbar-thumb {
+  background-color: #30363d;
+  border-radius: 10px;
+}
+
+@media screen and (max-width: 768px) {
+  .chat-container {
+    font-size: 14px;
+  }
+
+  .message-input {
+    padding: 0.5rem 0.75rem;
+  }
+
+  .send-button {
+    padding: 0.5rem 1rem;
+  }
+}
+
+.mobile-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  background-color: #0d1117;
+  border-bottom: 1px solid #21262d;
+}
+
+.back-button {
+  background-color: transparent;
+  border: none;
+  color: #c9d1d9;
+  font-size: 1rem;
+  font-weight: 500;
+  padding: 0.5rem 0.75rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.back-button:hover {
+  background-color: #21262d;
+  color: #fff;
+}
+
+.chat-title {
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: #e6edf3;
+  display: flex;
+  flex-grow: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  padding-left: 2rem;
+}
+.chat-title:hover {
+  text-decoration: underline;
+}

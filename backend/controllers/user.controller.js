@@ -3,7 +3,7 @@ import User from "../models/user.model.js";
 
 export const getUsers= async (req, res, next) => {
     try {
-        const users = await User.find();
+        const users = await User.find(req.params.id).select('-password');
 
         res.status(200).json({ success: true, message: 'List of all users', data: users });
     } catch (error) {
@@ -12,7 +12,7 @@ export const getUsers= async (req, res, next) => {
 }
 
 
-export const getUser= async (req, res, next) => {
+export const getUser= async (req, res) => {
     try {
         const user = await User.findById(req.params.id).select('-password');
 
@@ -22,8 +22,10 @@ export const getUser= async (req, res, next) => {
             throw error;
         }
 
-        res.status(200).json({ success: true, message: 'My details', data: user });
+        res.json({username: user.name});
+
+        // res.status(200).json({ success: true, message: 'User Details', data: user });
     } catch (error) {
-        next(error);
+        res.status(500).json({ error: 'Server error' });
     }
 }

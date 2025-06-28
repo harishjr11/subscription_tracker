@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import dayjs from "dayjs";
+import { toast } from 'react-toastify';
 
 function EditSubscriptionModal({ subscription, onClose, onUpdate }) {
   const [name, setName] = useState(subscription.name);
@@ -8,6 +9,7 @@ function EditSubscriptionModal({ subscription, onClose, onUpdate }) {
   const [frequency, setFrequency] = useState(subscription.frequency);
   const [paymentMethod, setPaymentMethod] = useState(subscription.paymentMethod);
   const [startDate, setStartDate] = useState("");
+  const [loading, setLoading] = useState(false);
 
   // 🛠 Proper useEffect for loading startDate
   useEffect(() => {
@@ -18,6 +20,9 @@ function EditSubscriptionModal({ subscription, onClose, onUpdate }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if(loading) return;
+    setLoading(true);
 
     const updatedSub = { 
       ...subscription, 
@@ -43,8 +48,12 @@ function EditSubscriptionModal({ subscription, onClose, onUpdate }) {
       if (data.success) {
         onUpdate(data.data);
       }
+      toast.success('Subscription updated successfully!');
     } catch (error) {
       console.error("Error updating subscription:", error);
+      toast.error('Failed to update subscription.');
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -68,8 +77,8 @@ function EditSubscriptionModal({ subscription, onClose, onUpdate }) {
           />
 
           <div className="flex justify-between">
-            <button type="submit" className="bg-blue-600 px-4 py-2 rounded-md">Save</button>
-            <button type="button" onClick={onClose} className="bg-red-500 px-4 py-2 rounded-md">Cancel</button>
+            <button type="submit" disabled={loading} className={`bg-blue-600 px-4 py-2 rounded-md ${loading ? 'cursor-not-allowed' : 'cursor-pointer'} hover:bg-blue-700 hover:scale-105`}>{loading ? 'Saving..' : 'Save'}</button>
+            <button type="button" onClick={onClose} className={`bg-red-500 px-4 py-2 rounded-md ${loading ? 'cursor-not-allowed' : 'cursor-pointer'} hover:bg-red-700 hover:scale-105`}>Cancel</button>
           </div>
         </form>
       </div>
