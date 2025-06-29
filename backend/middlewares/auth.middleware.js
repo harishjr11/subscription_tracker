@@ -4,6 +4,8 @@ import User from '../models/user.model.js';
 
 const authorize = async (req, res, next) => {
     try {
+        
+
         let token;
 
         if(req.headers.authorization && req.headers.authorization.startsWith('Bearer')){
@@ -22,6 +24,7 @@ const authorize = async (req, res, next) => {
             return res.status(404).json({success: false, message: 'Unauthorized access'});
         }
 
+        
         req.user = user;
         next();
 

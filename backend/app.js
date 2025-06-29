@@ -14,6 +14,7 @@ import workflowRouter from './routes/workflow.routes.js';
 import chatRouter from './routes/chat.routes.js';
 import messageRouter from './routes/message.routes.js';
 import { socketHandler } from './socket/socket.js';
+import friendRouter from './routes/friend.routes.js';
 
 const app = express();
 
@@ -30,6 +31,7 @@ app.use('/api/v1/subscriptions', subscriptionRouter);
 app.use('/api/v1/workflows', workflowRouter);
 app.use('/api/v1/chats', chatRouter);
 app.use('/api/v1/messages', messageRouter);
+app.use('/api/v1/friends', friendRouter)
 
 app.use(errorMidddleware);
 

@@ -12,6 +12,10 @@ export async function sendMessage(req, res) {
     content,
   });
 
+  await Chat.findByIdAndUpdate(chatId, {
+  latestMessage: message._id,
+});
+
   await Chat.findByIdAndUpdate(chatId, { updatedAt: Date.now() });
 
   res.status(201).json(message);
@@ -27,9 +31,9 @@ export async function getMessages(req, res) {
       {
         chatId,
         sender: { $ne: currentUserId },
-        seen: false
+        isSeen: false
       },
-      { $set: { seen: true } }
+      { $set: { isSeen: true } }
     );
 
     // Step 2: Fetch all messages
@@ -47,8 +51,6 @@ export async function getMessages(req, res) {
 
 export async function sendImage(req, res) {
    try {
-    console.log("📨 send-image route hit!");
-  console.log(req.body);
 
     const { chatId, sender, image, metadata, isSubscription } = req.body;
 
@@ -93,5 +95,29 @@ export async function sendImage(req, res) {
     res.status(500).json({ success: false, message: 'Server error' });
   }
 }
+
+export const markMessagesAsSeen = async (req, res) => {
+  try {
+    const userId = req.user._id;
+    const chatId = req.params.chatId;
+
+    const result = await Message.updateMany(
+      {
+        chatId,
+        sender: { $ne: userId }, // not sent by current user
+        isSeen: false
+      },
+      {
+        $set: { isSeen: true, status: 'seen' }
+      }
+    );
+
+    res.status(200).json({ success: true, updated: result.nModified });
+  } catch (err) {
+    console.error("Error marking messages as seen:", err);
+    res.status(500).json({ success: false, message: "Server error" });
+  }
+};
+
 
 

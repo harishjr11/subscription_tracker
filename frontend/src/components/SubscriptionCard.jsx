@@ -77,10 +77,8 @@ function SubscriptionCard({ subscription, onEdit }) {
         status: subscriptionData.status,
       },
     });
-
-    console.log("Before toast");
+    
     toast.success("Image shared!");
-    console.log("After toast");
 
   } catch (err) {
     console.error("Image share failed:", err);

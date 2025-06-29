@@ -62,7 +62,6 @@ const fetchSubscriptions = async () => {
     const data = await response.json();
     
     if (data.success) {
-      console.log("Fetched updated subscriptions:", data.data); // ✅ Debugging log
       setSubscriptions(data.data);
     } else {
       console.error("Failed to fetch subscriptions:", data.message);
