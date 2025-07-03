@@ -50,8 +50,4 @@ server.listen(PORT, async () => {
     await connectToDatabase();
 })
 
-// import bcrypt from "bcryptjs";
-// const hashed = await bcrypt.hash("harish", 10);
-// console.log(hashed);
-
 export default app;

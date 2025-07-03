@@ -2,7 +2,6 @@
 import { useEffect, useState, useRef } from 'react';
 import socket from '../socket';
 import './Chat.css';
-import { getUser } from '../../../backend/controllers/user.controller.js';
 import useTypingIndicator from '../hooks/useTypingIndicator.js';
 
 function Chat({ currentUserId, chat, onBack, isMobile, setChats }) {
