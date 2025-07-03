@@ -18,7 +18,10 @@ import friendRouter from './routes/friend.routes.js';
 
 const app = express();
 
-app.use(cors());
+app.use(cors({
+  origin: 'https://social-subscription-tracker.vercel.app',
+  credentials: true,
+}));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -53,7 +56,7 @@ socketHandler(io);
 
 
 server.listen(PORT, async () => {
-    console.log(`bro running in http://localhost:${PORT}/`);
+    console.log(`bro running in ${PORT}/`);
 
     await connectToDatabase();
 })
