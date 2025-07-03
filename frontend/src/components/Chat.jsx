@@ -59,8 +59,11 @@ function Chat({ currentUserId, chat, onBack, isMobile, setChats }) {
     const fetchMessages = async () => {
       try {
         const token = localStorage.getItem("token");
-        const res = await fetch(`http://localhost:5500/api/v1/messages/${chatId}`, {
-          headers: { Authorization: `Bearer ${token}` }
+        const res = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/v1/messages/${chatId}`, {
+          headers: {
+            Authorization: `Bearer ${token}`
+          },
+          credentials: 'include'
         });
 
         const data = await res.json();
@@ -220,8 +223,9 @@ function Chat({ currentUserId, chat, onBack, isMobile, setChats }) {
 
       try {
         const token = localStorage.getItem('token');
-        const res = await fetch(`http://localhost:5500/api/v1/users/${otherUserId}`, {
+        const res = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/v1/users/${otherUserId}`, {
           headers: { Authorization: `Bearer ${token}` },
+          credentials: 'include'
         });
 
         const data = await res.json();

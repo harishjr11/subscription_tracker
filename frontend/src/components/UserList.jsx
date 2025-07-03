@@ -1,12 +1,13 @@
 import { useState,useEffect } from "react";
 import axios from "axios";
+import { apiUrl } from "../api/userApi";
 
 function UsersList({ currentUserId, onUserSelect, chats, typingMap }) {
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
     const fetchUsers = async () => {
-      const res = await axios.get('http://localhost:5500/api/v1/users');
+      const res = await axios.get(apiUrl('/api/v1/users'));
       const filtered = res.data.data.filter(user => user._id !== currentUserId);
       setUsers(filtered);
     };
@@ -43,12 +44,13 @@ const getLatestForUser = (userId) => {
 
   const handleUserClick = async (user) => {
     const res = await axios.post(
-      'http://localhost:5500/api/v1/chats',
+      apiUrl('/api/v1/chats'),
       { userId: user._id },
       {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`
-        }
+        },
+        credentials: 'include' // Include credentials for cookies
       }
     );
     onUserSelect(res.data);

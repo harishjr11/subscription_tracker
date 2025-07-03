@@ -8,6 +8,7 @@ import { toast } from "react-toastify";
 import { FaEdit, FaShareAlt, FaTruckLoading } from "react-icons/fa";
 import { IoCheckmarkCircle, IoCloseCircle } from "react-icons/io5";
 import UserList from "./UserList";
+import { apiUrl } from "../api/userApi";
 
 function SubscriptionCard({ subscription, onEdit }) {
   const [currentUserId, setCurrentUserId] = useState(null);
@@ -21,8 +22,9 @@ function SubscriptionCard({ subscription, onEdit }) {
       if (!token) return;
 
       try {
-        const res = await fetch("http://localhost:5500/api/v1/auth/me", {
+        const res = await fetch(apiUrl("/api/v1/auth/me"), {
           headers: { Authorization: `Bearer ${token}` },
+          credentials: 'include',
         });
         const data = await res.json();
         if (data.success) setCurrentUserId(data.user._id);

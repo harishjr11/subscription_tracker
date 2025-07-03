@@ -4,6 +4,7 @@ import SubscriptionControls from "./SubscriptionControls";
 import SubscriptionCard from "./SubscriptionCard";
 import { motion } from "framer-motion";
 import EditSubscriptionModal from "./EditSubscriptionModal";
+import { apiUrl } from "../api/userApi";
 
 function Subscriptions() {
   const [subscriptions, setSubscriptions] = useState([]);
@@ -32,8 +33,9 @@ function Subscriptions() {
         const token = localStorage.getItem("token");
         if (!token) return;
 
-        const response = await fetch("http://localhost:5500/api/v1/auth/me", {
+        const response = await fetch(apiUrl("/api/v1/auth/me"), {
           headers: { Authorization: `Bearer ${token}` },
+          credentials: 'include',
         });
 
         const data = await response.json();
@@ -55,8 +57,9 @@ const fetchSubscriptions = async () => {
   if (!userId) return;
 
   try {
-    const response = await fetch(`http://localhost:5500/api/v1/subscriptions/users/${userId}`, {
+    const response = await fetch(apiUrl(`/api/v1/subscriptions/users/${userId}`), {
       headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+      credentials: 'include', // Include credentials for cookies
     });
 
     const data = await response.json();
@@ -77,8 +80,9 @@ const fetchSubscriptions = async () => {
       if (!userId) return;
 
       try {
-        const response = await fetch(`http://localhost:5500/api/v1/subscriptions/users/${userId}`, {
+        const response = await fetch(apiUrl(`/api/v1/subscriptions/users/${userId}`), {
           headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+          credentials: 'include',
         });
 
         const data = await response.json();
@@ -118,13 +122,14 @@ const fetchSubscriptions = async () => {
       setSubscriptions((prev) => [...prev, tempSubscription]);
   
       // Send request to backend
-      const response = await fetch("http://localhost:5500/api/v1/subscriptions", {
+      const response = await fetch(apiUrl("/api/v1/subscriptions"), {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify(subscriptionData),
+        credentials: 'include',
       });
   
       const data = await response.json();

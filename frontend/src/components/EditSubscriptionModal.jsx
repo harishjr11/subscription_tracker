@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import dayjs from "dayjs";
 import { toast } from 'react-toastify';
+import { apiUrl } from "../api/userApi";
 
 function EditSubscriptionModal({ subscription, onClose, onUpdate }) {
   const [name, setName] = useState(subscription.name);
@@ -35,13 +36,14 @@ function EditSubscriptionModal({ subscription, onClose, onUpdate }) {
     };
 
     try {
-      const response = await fetch(`http://localhost:5500/api/v1/subscriptions/${subscription._id}`, {
+      const response = await fetch(apiUrl(`/api/v1/subscriptions/${subscription._id}`), {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
         body: JSON.stringify(updatedSub),
+        credentials: 'include'
       });
 
       const data = await response.json();

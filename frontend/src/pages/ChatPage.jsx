@@ -3,8 +3,9 @@ import io from 'socket.io-client';
 import axios from 'axios';
 import UserList from '../components/UserList.jsx';
 import Chat from '../components/Chat.jsx';
+import { apiUrl } from '../api/userApi.js';
 
-const socket = io('http://localhost:5500'); // make sure this is consistent with your backend
+const socket = io('https://wee-lemming-harishdemolookinahh-5819fbe3.koyeb.app/'); // make sure this is consistent with your backend
 
 function ChatPage() {
   const [currentUser, setCurrentUser] = useState(null);
@@ -101,8 +102,9 @@ function ChatPage() {
         const token = localStorage.getItem("token");
         if (!token) return;
 
-        const response = await fetch("http://localhost:5500/api/v1/auth/me", {
+        const response = await fetch(apiUrl("/api/v1/auth/me"), {
           headers: { Authorization: `Bearer ${token}` },
+          credentials: 'include', // ✅ ADDED: Include credentials for cookies
         });
 
         const data = await response.json();
@@ -125,8 +127,9 @@ function ChatPage() {
   // ✅ Fetch chats on load
   useEffect(() => {
     const fetchChats = async () => {
-      const res = await axios.get('http://localhost:5500/api/v1/chats', {
-        headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }
+      const res = await axios.get(apiUrl('/api/v1/chats'), {
+        headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+        credentials: 'include', // ✅ ADDED: Include credentials for cookies
       });
       setChats(res.data);
     };
@@ -139,8 +142,9 @@ function ChatPage() {
   // ✅ ADDED: Force refresh chats when going back to sidebar in mobile
   if (isMobile) {
     try {
-      const res = await axios.get('http://localhost:5500/api/v1/chats', {
-        headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }
+      const res = await axios.get(apiUrl('/api/v1/chats'), {
+        headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+        credentials: 'include', // ✅ ADDED: Include credentials for cookies
       });
       setChats(res.data);
       console.log("🔄 Refreshed chats on mobile back:", res.data);

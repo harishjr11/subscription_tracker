@@ -1,6 +1,7 @@
 // src/pages/Register.jsx
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { apiUrl } from '../api/userApi';
 
 const Register = () => {
   const [name, setUsername] = useState('');
@@ -16,10 +17,11 @@ const Register = () => {
     setError('');
 
     try {
-      const res = await fetch('http://localhost:5500/api/v1/auth/sign-up', {
+      const res = await fetch(apiUrl('/api/v1/auth/sign-up'), {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ name, email, password }),
+        credentials: 'include', // Include credentials for cookies
       });
 
       const data = await res.json();

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { apiUrl } from "../api/userApi";
 
 function Login({ onLogin }) {
   const [email, setEmail] = useState("");
@@ -15,10 +16,11 @@ function Login({ onLogin }) {
     setError("");
 
     try {
-      const res = await fetch("http://localhost:5500/api/v1/auth/sign-in", {
+      const res = await fetch(apiUrl("/api/v1/auth/sign-in"), {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password }),
+        credentials: 'include', // ✅ Include credentials for cookies
       });
 
       const data = await res.json();
