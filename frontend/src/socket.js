@@ -1,6 +1,11 @@
 // src/socket.js
 import { io } from 'socket.io-client';
 
-const socket = io('http://localhost:5500'); // change this to your backend URL if deployed
+const socket = io('https://wee-lemming-harishdemolookinahh-5819fbe3.koyeb.app/'); // change this to your backend URL if deployed
+
+//const socket = io('https://wee-lemming-harishdemolookinahh-5819fbe3.koyeb.app/', {
+//  transports: ['websocket'], // force WebSocket only
+//});
+
 
 export default socket;

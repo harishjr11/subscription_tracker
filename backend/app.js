@@ -40,7 +40,15 @@ app.get('/', (req, res) => {
 })
 
 const server = http.createServer(app);
-const io = new Server(server, { cors: { origin: '*' } });
+//const io = new Server(server, { cors: { origin: '*' } });
+
+const io = new Server(server, {
+  cors: {
+    origin: 'https://social-subscription-tracker.vercel.app',
+    methods: ['GET', 'POST','DELETE', 'PUT','PATCH'],
+    credentials: true
+  }
+});
 socketHandler(io);
 
 
