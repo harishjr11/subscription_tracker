@@ -56,7 +56,7 @@ socketHandler(io);
 
 
 server.listen(PORT, async () => {
-    console.log(`bro running in ${PORT}/`);
+    console.log(`bro running in http://localhost:${PORT}/`);
 
     await connectToDatabase();
 })
